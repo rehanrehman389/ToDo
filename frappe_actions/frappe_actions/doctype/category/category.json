@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "field:title",
  "creation": "2023-06-03 20:21:34.148431",
  "default_view": "List",
  "doctype": "DocType",
@@ -21,10 +22,11 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-06-03 20:23:53.703257",
+ "modified": "2023-06-04 21:49:45.491969",
  "modified_by": "Administrator",
  "module": "Frappe Actions",
  "name": "Category",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {

@@ -12,7 +12,7 @@
           <ul>
               <!-- {{ actions.data }} -->
               <li class="flex flex-row space-y-1 items-center justify-between" v-for="action in actions.data" :key="action.title">
-                <span>{{ action.title }} - {{ action.status }}</span>
+                <router-link :to="`/actions/${action.name}`">{{ action.title }}</router-link>
                 <Button @click="completeAction(action.name)" icon="check" />
                 
               </li>
@@ -23,16 +23,38 @@
       </Card>
     </div>
 
-    <Dialog :options="{title: 'Add New Action'}" v-model="addActionDialogeShown"/>
+    <Dialog :options="{title: 'Add New Action', actions: [
+        {
+          label: 'Add Action',
+          appearance: 'primary',
+          handler: ({ close }) => {
+            // updateRole()
+            addAction()
+            close() // closes dialog
+          },
+        },
+        { label: 'Cancel' },
+      ],
+    }" 
+    v-model="addActionDialogeShown">
+    <template #body-content>
+      <p class="mt-4 text-lg">
+        <div class="space-y-2">
+          <Input v-model="action.title" type="text" required placeholder="title" lable="Title" />
+          <Input v-model="action.category" label="List" type="select" :options="categoryOptions" />
+        </div>
+      </p>
+    </template></Dialog>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import { Dialog, createListResource, Card, Button } from 'frappe-ui'
+import { Dialog, createListResource, Card, Button, Input } from 'frappe-ui'
 import { createResource } from 'frappe-ui'
 import { session } from '../data/session'
 import { reactive } from 'vue'
+import { computed } from '@vue/reactivity'
 
 // const ping = createResource({
 //   url: 'ping',
@@ -58,6 +80,27 @@ const actions = createListResource({
 
 actions.reload()
 
+
+const categories = createListResource({
+  doctype: 'Category',
+  fields: ["name"],
+  transform(categories) {
+    return categories.map((c) => c.name)
+  },
+  cache: 'actions', //cache
+})
+
+categories.reload()
+console.log(categories)
+
+const categoryOptions = computed(() => {
+  if(categories.list.loading || !categories.data){
+    return []
+  }
+  //console.log(categories.data)
+  return categories.data
+})
+
 const completeAction = (actionName) => {
   //console.log(actionName)
   actions.setValue.submit({
@@ -66,8 +109,9 @@ const completeAction = (actionName) => {
   })
 }
 
-const addAction = (action) => {
+const addAction = () => {
   actions.insert.submit(action)
+  //console.log(action)
 }
 
 const showDialog = ref(false)

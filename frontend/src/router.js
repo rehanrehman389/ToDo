@@ -9,6 +9,11 @@ const routes = [
     component: () => import('@/pages/Home.vue'),
   },
   {
+    path: '/actions/:name',
+    component: () => import('@/pages/ActionDetails.vue'),
+    props: true
+  },
+  {
     name: 'Login',
     path: '/account/login',
     component: () => import('@/pages/Login.vue'),

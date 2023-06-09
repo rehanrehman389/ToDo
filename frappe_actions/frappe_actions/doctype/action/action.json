@@ -20,8 +20,7 @@
    "fieldname": "title",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Title",
-   "reqd": 1
+   "label": "Title"
   },
   {
    "fieldname": "date",
@@ -48,8 +47,7 @@
    "fieldname": "category",
    "fieldtype": "Link",
    "label": "Category",
-   "options": "Category",
-   "reqd": 1
+   "options": "Category"
   },
   {
    "fieldname": "tasks",
@@ -60,7 +58,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-06-03 21:28:47.123621",
+ "modified": "2023-06-04 21:37:06.742234",
  "modified_by": "Administrator",
  "module": "Frappe Actions",
  "name": "Action",

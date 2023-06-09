@@ -87,7 +87,7 @@ const categories = createListResource({
   transform(categories) {
     return categories.map((c) => c.name)
   },
-  cache: 'actions', //cache
+  cache: 'actions', //cache test comment
 })
 
 categories.reload()
